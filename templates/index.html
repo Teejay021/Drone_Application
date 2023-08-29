@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+
+<body>
+
+    <!-- <div class="navbar">
+
+        <a href="/"> <img class = "logo" src="logo.jpg" alt="DH"> </a> 
+        <a href="#news" class="">About</a>
+        <a href="#news" class="">Contact</a>
+        <a href="#home" class="">News</a>
+
+
+    </div> -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 parent-div">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"> <img class="logo" src="static/images/logo.jpg"> </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto ">
+              <li class="nav-item">
+                <a class="nav-link mx-2 active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link mx-2" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link mx-2" href="#">Contact</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Company
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="#">Blog</a></li>
+                  <li><a class="dropdown-item" href="#">About Us</a></li>
+                  <li><a class="dropdown-item" href="#">Contact us</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <div class="stream-Overlay parent-div">
+
+        
+
+      <img src="{{ url_for('video_feed') }}" alt="Camera Feed" class="cameraFeed shadows"> 
+
+      <div class="video-controls-container">
+
+        <div class="video-controls">
+
+         <button class="theater-btn">
+
+          <svg class="tall" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M19 6H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H5V8h14v8z"/>
+          </svg>
+          <svg class="wide" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M19 7H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H5V9h14v6z"/>
+          </svg>
+
+         </button>
+
+         <button class="fullscreen-btn"> 
+          <svg class="open" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+          </svg>
+          <svg class="close" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+          </svg>
+       </button>
+
+        </div>
+
+
+      </div>
+
+    
+
+
+    </div>
+
+
+    <div class="controls parent-div">
+
+
+      <div class="gear-shiftDesign" id="left-Controller">
+  
+        <div class="circle circle1 shadows"></div>
+  
+        <div class="circle circle2"></div>
+  
+        <div class="circle circle3 shadows"></div>
+  
+        <div class="circle circle4"></div>
+  
+        <img src="static/images/upArrow.png" class="arrowUp">
+        <img src="static/images/downArrow.png" class="arrowDown">
+  
+      </div>
+
+
+      <div class="gear-shiftDesign" id="right-Controller">
+
+        <div class="circle circle1 shadows"></div>
+  
+        <div class="circle circle2"></div>
+  
+        <div class="circle circle3 shadows"></div>
+  
+        <div class="circle circle4"></div>
+  
+        <img src="static/images/upArrow.png" class="arrowUp">
+        <img src="static/images/downArrow.png" class="arrowDown">
+  
+  
+      </div>
+
+
+
+
+      <div class="button-background pause-container shadows">
+        <a href="#"><img src="static/images/pause-button.png" ></a>
+      </div>
+
+      <div class="button-background settings-logoContainer shadows">
+        <a href="#" id="blurTrigger"><img src="static/images/Settings-icon.png" ></a>
+      </div>
+
+      
+      <div class="button-background picture-container shadows">
+        <a href="#"><img src="static/images/picture.png" class="capture-photo"></a>
+      </div>
+
+      <div class="button-background lock-container shawdos">
+        <a href="#"><img src="static/images/open-lock.png" class="lock"></a>
+      </div>
+
+
+
+    </div>
+
+    <div class="setting-area">
+
+
+      <form action="" class="setting-form">
+
+        <div class="form-row">
+
+          <label for="speedSetting" class = "form-details-prt1">Speed</label>
+          <input type ="text" class ="speed" name="speed" value="10">
+
+
+        </div>
+
+
+  
+        
+        <!-- 
+        There has to be variables to be set for the default settings so when the user clicks on it it's like a shadow not an actual value  -->
+        <div class="form-row">
+
+          <label for="leftMotor-forward" class = "form-details">Left motor forward:</label>
+          <input type ="text" class ="LH-forward" name="leftMotor-forward" value="W">
+        </div>
+        
+        <div class="form-row">
+
+          <label for="leftMotor-backward" class = "form-details">Left motor backward:</label>
+          <input type ="text" class ="LH-backward" name="leftMotor-backward" value="S" >
+
+        </div>
+
+        <div class="form-row">
+
+          <label for="rightMotor-forward" class = "form-details">Right motor forward:</label>
+          <input type ="text" class ="RH-forward" name="rightMotor-forward" value="ArrowUp" >
+
+        </div>
+  
+  
+        <div class="form-row">
+
+          <label for="rightMotor-backward" class = "form-details">Right motor backward:</label>
+          <input type ="text" class ="RH-backward" name="rightMotor-backward" value="ArrowDown">
+    
+
+
+        </div class="form-row">
+
+        <div class="buttons">
+
+          <button type="reset" class="btn btn-dark reset-button">Reset</button>
+          <button type="submit" class="btn btn-outline-dark submit-button">Apply</button>
+
+        </div>
+      
+  
+      </form>
+      
+
+    </div>
+
+    <!-- Add this to your HTML wherever you want the captured image to be displayed -->
+    <img id="capturedImage" alt="Captured Image" src="">
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <script src="static/response.js"></script>
+    
+</body>
+</html>

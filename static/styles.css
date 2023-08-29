@@ -1,0 +1,442 @@
+body{
+
+    /* background-image: linear-gradient(to top, #000000, #191718, #2a262a, #3b383e, #4b4a54); */
+    background-image: linear-gradient(to right top, #000000, #191718, #2a262a, #3b383e, #4b4a54);
+    margin-top: 0%;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+
+
+.logo{
+
+    height: 3opx !important;
+    width: 35px !important;
+    
+}
+
+.navbar{
+
+    /* background-color: hsla(0, 0%, 10%, 1)!important; */
+    background-color: #303030 !important;
+}
+
+.stream-Overlay{
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    width: 60%;
+    height: 700px;
+    margin-inline: auto;
+    background-color: black;
+    
+    /* we need to set a minimum width since it looks ugly for small screens */
+    
+}
+
+
+
+.stream-Overlay.theater,
+.stream-Overlay.fullscreen{
+
+    max-width: initial;
+    width: 100%;
+}
+
+.stream-Overlay.theater{
+
+    max-height: 90vh;
+    margin-top: 0%;
+}
+
+.stream-Overlay.fullscreen{
+
+    max-height: 100vh;
+}
+
+/*buttons setting*/
+
+.stream-Overlay.theater .tall{
+
+    display: none;
+}
+
+.stream-Overlay:not(.theater) .wide{
+
+    display: none;
+}
+
+.stream-Overlay.fullscreen .open{
+
+    display: none;
+}
+
+.stream-Overlay:not(.fullscreen) .close{
+
+    display: none;
+}
+
+.cameraFeed{
+    
+    position: relative;
+    width: 100%;
+    
+}
+
+
+.cameraFeeed-wrapper{
+
+    width: 100%;
+    height: 100%;
+
+}
+
+.video-controls-container{
+    
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+    
+
+
+}
+
+.video-controls-container::before{
+
+    content: "";
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(to top,rgba(0, 0, 0, 0.233),transparent);
+    width: 100%;
+    aspect-ratio: 6/1;
+    z-index: -1;
+    pointer-events: none;
+    
+}
+
+.video-controls-container .video-controls{
+
+    display: flex;
+    gap: 0.5rem;
+    justify-content: end;
+
+
+}
+
+.video-controls-container .video-controls button{
+    margin: 0;
+    background:none;
+    border: none;
+    color: white;
+    height: 45px;
+    width: 45px;
+    font-size: 1.1rem;
+    opacity: .65;
+    transition: opacity 150ms ease-in-out;
+}
+
+.video-controls-container .video-controls button:hover{
+
+    opacity: 1;
+}
+
+
+
+
+.stream-Overlay:hover .video-controls-container{
+
+    opacity: 1;
+
+}
+
+.shadows{
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.377);
+}
+
+
+
+.controls{
+
+    position: relative;
+    justify-content:center;
+    background-color: none;
+    height: 500px;
+    margin-top: 1%;
+    width:60%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2%;
+    margin-bottom: 3%;
+}
+
+.gear-shift {
+    position: relative;
+    top: 100px;
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    transition: transform 0.2s ease;
+    background-color: purple;
+}
+
+
+.second-gear-shift {
+
+    position: relative;
+    top: 100px;
+    left: 600px;
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    transition: transform 0.2s ease;
+
+    background-color: blue;
+}
+
+/*positioning the controlers*/
+
+
+
+.controls .settings-logoContainer{
+
+    position: absolute;
+    margin-left: auto;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: whitesmoke;
+}
+
+.settings-logoContainer img{
+
+    position: absolute;
+    left: calc(50% - (30px)/2); /* 100 -40 = 60 and 60/2 = 30 */
+    top: calc(50% - (25px)/2);  /* 100 -45 = 55 and 55/2 = 27.5 */
+    width: 30px;
+    height: 25px;
+    
+}
+
+.controls .pause-container{
+
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    background-color:antiquewhite;
+
+}
+
+.pause-container img{
+
+    position: absolute;
+    left: calc(50% - (40px)/2); /* 100 -40 = 60 and 60/2 = 30 */
+    top: calc(50% - (40px)/2);  /* 100 -45 = 55 and 55/2 = 27.5 */
+    width: 40px;
+    height: 40px;
+    
+}
+
+.controls .picture-container{
+
+    position: absolute;
+    top: 130px;
+    left: 400px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: antiquewhite;
+}
+
+.picture-container img{
+
+    position: absolute;
+    left: calc(50% - (30px)/2); /* 100 -40 = 60 and 60/2 = 30 */
+    top: calc(50% - (25px)/2);  /* 100 -45 = 55 and 55/2 = 27.5 */
+    width: 30px;
+    height: 25px;
+    
+
+}
+
+.controls .lock-container{
+    position: absolute;
+    top: 130px;
+    right: 400px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: antiquewhite; 
+
+}
+
+.lock-container img{
+
+    position: absolute;
+    left: calc(50% - (50px)/2); /* 100 -40 = 60 and 60/2 = 30 */
+    top: calc(50% - (45px)/2);  /* 100 -45 = 55 and 55/2 = 27.5 */
+    width: 50px;
+    height: 45px;
+
+}
+
+.controls #left-Controller{
+
+    position: absolute;
+    left: 150px;
+    top: 160px;
+
+}
+
+.controls #right-Controller{
+
+    position: absolute;
+    right: 150px;
+    top: 160px;
+
+}
+
+.blur-effect{
+
+    filter: blur(10px);
+}
+
+.setting-area{
+
+    display: none;
+    color: white;
+    position: fixed;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 30%;
+    padding: 50px;
+    transform: translate(-50%,-50%);
+    background-color: darkgrey;
+    border-radius: 2%;
+}
+
+.setting-form div:not(.buttons) {
+
+    display: flex;
+    background-color: black;
+    margin-bottom: 3%;
+    justify-content: space-between;
+    border-radius: 5px;
+
+
+}
+
+.setting-form div .form-details1{
+
+    margin-right: 2px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+:root {
+    --circle-size1: 180px; /* Adjust the size of the first circle */
+    --circle-size2: 115px; /* Adjust the size of the second circle */
+}
+  
+.gear-shiftDesign {
+
+    position: relative;
+    width: var(--circle-size1);
+    height: var(--circle-size1);
+
+  }
+  
+.circle {
+    position: absolute;
+    border-radius: 50%;
+}
+  
+.circle1 {
+    background-image: linear-gradient(to left top, #000000, #111111, #1b1b1b, #252525, #303030);
+    width: var(--circle-size1);
+    height: var(--circle-size1);
+
+}
+  
+.circle2 {
+    
+    position: absolute;
+    background-image: linear-gradient(to left top, #1f1f1f, #232323, #272727, #2c2c2c, #303030);
+    width: var(--circle-size2);
+    height: var(--circle-size2);
+    top: calc(50% - var(--circle-size2)/2); /* Center the second circle vertically with offset */
+    left: calc(50% - var(--circle-size2)/2);
+    
+}
+
+.circle3{
+
+    background-color: #919191;
+    width: 60px;
+    height: 60px;
+    top: calc(50% - 60px/2);
+    left: calc(50% - 60px/2);
+}
+
+.circle4{
+
+    background-color: #C6C6C6;
+    width: 45px;
+    height: 45px;
+    top: calc(50% - 45px/2);
+    left: calc(50% - 45px/2);
+    transition: transform 0.2s ease;
+
+}
+
+.gear-shiftDesign img{
+
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.arrowDown{
+
+    top: calc(50% + var(--circle-size2)/2 - 20px);
+    left: calc(50% - 20px/2);/* 20px is the width of the image*/
+}
+
+.arrowUp{
+
+    left: calc(50% - 20px/2);
+    top:calc(50% - var(--circle-size2)/2);
+}
+
+.buttons{
+
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+button{
+
+    margin-left: 10%;
+    border-radius: 5px;
+}
+
+/*Fullscreen classes */
+
+
