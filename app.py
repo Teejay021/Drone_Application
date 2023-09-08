@@ -21,31 +21,22 @@ def configure_camera_resolution(video_capture):
 
 
 def generate_frames():
+
     while True:
-        if not capturing_image:
-            success, frame = camera.read()
-            if not success:
-                break
-            else:
-                ret, buffer = cv2.imencode('.jpg', frame)
-                frame = buffer.tobytes()
-                yield (b'--frame\r\n'
-                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        success, frame = camera.read()
+        if not success:
+            break
         else:
-            response = process_capture()
-            if 'image' in response:
-                yield (b'--frame\r\n'
-                       b'Content-Type: image/jpeg\r\n\r\n' + base64.b64decode(response['image']) + b'\r\n')
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
             
             
 def capture_photo():
-    global capturing_image
-    cam = cv2.VideoCapture(0)
-    ret, image = cam.read()  # Read a single frame
-    cam.release()  # Release the camera to free resources
-
-    if ret:
-        ret, buffer = cv2.imencode('.jpg', image)
+    success, frame = camera.read()
+    if success:
+        ret, buffer = cv2.imencode('.jpg', frame)
         if ret:
             image_base64 = base64.b64encode(buffer).decode('utf-8')
             return image_base64
@@ -87,15 +78,12 @@ def process_movement():
 @app.route('/capture_photo', methods=['POST'])
 def call_capture_photo():
 
-    global capturing_image
-    if capturing_image:
-        return jsonify({'error': 'Image capture already in progress'})
+    image_base64 = capture_photo()
 
-    print("Starting image capture...")
-    capturing_image = True
-    response = process_capture()
-    capturing_image = False
-    print("Image capture completed")
+    if image_base64:
+        response = {'image': image_base64}
+    else:
+        response = {'error': 'Failed to capture image'}
 
     return jsonify(response)
 
@@ -144,4 +132,5 @@ def handle_java_input(input_string):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=5001, debug=True, threaded= True)
+    
+    app.run(host='0.0.0.0', port=5001, debug=True, threaded=True)

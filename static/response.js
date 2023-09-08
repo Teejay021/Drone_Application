@@ -1,9 +1,14 @@
   //Buttons for the camera Feed
+
+  var globalLockedControls = true
+  var arrowEnabled = true
   
   $(".theater-btn").click(function(){
 
     $(".stream-Overlay").toggleClass("theater");
     $(".cameraFeed").toggleClass("no-border-radius");
+    $(".controls").toggleClass("fullWidth");
+    
 
   });
 
@@ -80,11 +85,9 @@
 
    console.log(gholi);
       
-    movementSetting.LH_forward = $(".LH-forward").val();
-    movementSetting.LH_backward = $(".LH-backward").val();
-    movementSetting.RH_forward = $(".RH-forward").val();
-    console.log(movementSetting.RH_forward);
-    movementSetting.RH_backward = $(".RH-backward").val();
+    movementSetting.LH_forward = $(".LH-forward").val().toLowerCase();
+    movementSetting.LH_backward = $(".LH-backward").val().toLowerCase();
+    movementSetting.RH_forward = $(".RH-forward").val().toLowerCase();
     
     
 
@@ -103,8 +106,8 @@
     movementSetting.RH_forward = "ArrowUp";
     movementSetting.RH_backward = "ArrowDown";
         
-    movementSetting.LH_forward = "W";
-    movementSetting.LH_backward = "S";
+    movementSetting.LH_forward = "w";
+    movementSetting.LH_backward = "s";
 
     movementSetting.speed = 10;
     
@@ -119,133 +122,206 @@
     // Event listener for keydown event
   $(document).keydown(function(event){
 
-    var movement = event.key;
-    sendData(movement);
+    if(globalLockedControls == false){
+      var movement = event.key;
+      sendData(movement);
 
-    if (event.key === movementSetting.RH_forward) {
-      // Handle ArrowUp keydown event
-      $("#right-Controller .circle4").css("transform", "translateY(-33px)");
-    
-      $("#right-Controller .arrowUp").attr("src", "static/images/test2.png");
-
-    }
+      if (event.key === movementSetting.RH_forward) {
+        // Handle ArrowUp keydown event
+        $("#right-Controller .circle4").css("transform", "translateY(-33px)");
       
-    else if (event.key === movementSetting.RH_backward) {
-        // Handle ArrowDown keydown event
-      $("#right-Controller .circle4").css("transform", "translateY(33px)");
-    
-      $("#right-Controller .arrowDown").attr("src", "static/images/test2.png");
-    }
-    else if(event.key === movementSetting.LH_forward){
-      $("#left-Controller .circle4").css("transform", "translateY(-33px)");
-      $("#left-Controller .arrowUp").attr("src","static/images/test2.png");
-    }
+        $("#right-Controller .arrowUp").attr("src", "static/images/test2.png");
 
-    else if (event.key === movementSetting.LH_backward){
+      }
+        
+      else if (event.key === movementSetting.RH_backward) {
+          // Handle ArrowDown keydown event
+        $("#right-Controller .circle4").css("transform", "translateY(33px)");
+      
+        $("#right-Controller .arrowDown").attr("src", "static/images/test2.png");
+      }
+      else if(event.key === movementSetting.LH_forward){
+        $("#left-Controller .circle4").css("transform", "translateY(-33px)");
+        $("#left-Controller .arrowUp").attr("src","static/images/test2.png");
+      }
 
-      $("#left-Controller .circle4").css("transform", "translateY(33px)");
-      $("#left-Controller .arrowDown").attr("src","static/images/test2.png");
+      else if (event.key === movementSetting.LH_backward){
 
+        $("#left-Controller .circle4").css("transform", "translateY(33px)");
+        $("#left-Controller .arrowDown").attr("src","static/images/test2.png");
+
+      }
     }
     
   });
 
   $(document).keyup(function(event) {
 
-    var movement = "keyup";
-    sendData(movement);
-  
-    if (event.key === movementSetting.RH_forward) {
-        // Handle ArrowUp and ArrowDown keyup event
-        
-  
-      $("#right-Controller .circle4").css("transform", "translateY(0)");
-      $("#right-Controller .arrowUp").attr("src","static/images/upArrow.png");
-        
+    if (globalLockedControls == false){
+
+      var movement = "keyup";
+      sendData(movement);
+    
+      if (event.key === movementSetting.RH_forward) {
+          // Handle ArrowUp and ArrowDown keyup event
+          
+    
+        $("#right-Controller .circle4").css("transform", "translateY(0)");
+        $("#right-Controller .arrowUp").attr("src","static/images/upArrow.png");
+          
+      }
+    
+      else if(event.key === movementSetting.RH_backward){
+    
+        $("#right-Controller .circle4").css("transform", "translateY(0)");
+        $("#right-Controller .arrowDown").attr("src","static/images/downArrow.png");
+    
+      }
+
+      else if(event.key === movementSetting.LH_forward){
+        $("#left-Controller .circle4").css("transform", "translateY(0)");
+        $("#left-Controller .arrowUp").attr("src","static/images/upArrow.png");
+      }
+
+      else if (event.key === movementSetting.LH_backward){
+
+        $("#left-Controller .circle4").css("transform", "translateY(0)");
+        $("#left-Controller .arrowDown").attr("src","static/images/downArrow.png");
+
+      }
     }
+  });
   
-    else if(event.key === movementSetting.RH_backward){
-  
-      $("#right-Controller .circle4").css("transform", "translateY(0)");
-      $("#right-Controller .arrowDown").attr("src","static/images/downArrow.png");
-  
+
+  //Moblie code for when user touches the movement keys
+
+
+  $(document).ready(function() {
+
+    
+    // Define a function that encapsulates the behavior for touch controls.
+    function handleController(controller, circleSlider, arrowUp, arrowDown) {
+        let isDragging = false;   // Indicates if dragging is currently happening
+        let startY = 0;          // Start position of the touch event
+
+        // On touch start of the circle slider, record the starting Y-position
+        $(circleSlider).on('touchstart', function(e) {
+            if (e.originalEvent.targetTouches.length === 1) {
+                startY = e.originalEvent.targetTouches[0].clientY;
+                isDragging = true;
+            }
+        });
+
+        // Handle the movement of the circle slider based on touch movements
+        $(controller).on('touchmove', function(e) {
+            if (!isDragging) return;  // If we aren't dragging, skip
+
+            const currentY = e.originalEvent.targetTouches[0].clientY;
+            const diffY = currentY - startY;
+
+            // Define the boundaries of the controller
+            const controllerTop = $(controller).offset().top;
+            const controllerBottom = controllerTop + $(controller).height();
+            const circleSliderTop = $(circleSlider).offset().top;
+            const circleSliderHeight = $(circleSlider).height();
+
+            // Allow for some margin beyond the exact boundary for a smoother UX
+            const margin = 0.1 * circleSliderHeight; // Allowing 10% extra movement
+            const maxTranslate = controllerBottom - circleSliderTop - circleSliderHeight + margin;
+            const minTranslate = controllerTop - circleSliderTop - margin;
+
+            // Calculate the new Y-position for the slider
+            let newTranslateY = diffY;
+            newTranslateY = Math.min(newTranslateY, maxTranslate);
+            newTranslateY = Math.max(newTranslateY, minTranslate);
+
+            // Apply the movement to the slider
+            $(circleSlider).css('transform', `translateY(${newTranslateY}px)`);
+
+            // Check the movement direction and update the arrow images accordingly
+
+            if (newTranslateY > 0) {
+              $(arrowDown).attr("src","static/images/white-downArrow.png"); /*New down arrow.png*/
+              $(arrowUp).attr("src","static/images/upArrow.png");
+            } 
+            
+            else {
+              $(arrowDown).attr("src","static/images/downArrow.png"); 
+              $(arrowUp).attr("src","static/images/white-upArrow.png"); /*New up arrow.png*/
+          }
+        });
+
+        // Once the touch ends, reset the slider's position and the arrow images
+        $(controller).on('touchend', function(e) {
+            $(circleSlider).css('transform', 'translateY(0px)');
+            $(arrowUp).attr("src","static/images/upArrow.png");
+            $(arrowDown).attr("src","static/images/downArrow.png");
+            isDragging = false;
+        });
     }
 
-    else if(event.key === movementSetting.LH_forward){
-      $("#left-Controller .circle4").css("transform", "translateY(0)");
-      $("#left-Controller .arrowUp").attr("src","static/images/upArrow.png");
-    }
+    // Invoke the function for both left and right controllers
+    handleController("#left-Controller", "#leftCircleSlider", ".arrowUp:eq(0)", ".arrowDown:eq(0)");
+    handleController("#right-Controller", "#rightCircleSlider", ".arrowUp:eq(1)", ".arrowDown:eq(1)");
 
-    else if (event.key === movementSetting.LH_backward){
-
-      $("#left-Controller .circle4").css("transform", "translateY(0)");
-      $("#left-Controller .arrowDown").attr("src","static/images/downArrow.png");
-
-    }
   });
 
 
-  const open_lock = "open-lock.png";
-  const closed_lock = "lock.png";
+  
 
-  let isOpenLock = true;
+  //Prevent user from scrolling when using the arrows as controls by activating/deacitvating the lock
+
+  let isClosedLock = true;
+
+  const opened_lock = "open-lock.png";
+  const closed_lock = "close-lock.png";
 
   $(".lock-container").click(function(event){
 
-    event.preventDefault();
-    
-    if(isOpenLock){
-      $(".lock").attr("src","static/images/"+closed_lock);
+    console.log("lock is working")
 
+    event.preventDefault();
+
+    globalLockedControls = !globalLockedControls
+
+    arrowEnabled = !arrowEnabled
+
+    
+    if(isClosedLock){
+
+      $(".lock").attr("src","static/images/"+opened_lock);
+      disableScroll();
+      
     }
     else{
-      $(".lock").attr("src","static/images/"+open_lock);
+
+      $(".lock").attr("src","static/images/"+closed_lock);
+      enableScroll();
 
     }
 
-    isOpenLock = !isOpenLock;
-  })
+    isClosedLock = !isClosedLock;
+  });
+
+  $(document).on("keydown",function(event){
+
+    if((event.key == "ArrowUp" || event.key == "ArrowDown") && arrowEnabled == false){
+
+        event.preventDefault()
+    }
+  });
+
+  function disableScroll() {
+    $('html, body').css('overflow', 'hidden');
+};
+
+function enableScroll() {
+  $('html, body').css('overflow', 'auto');
+};
 
 
 
 
-
-// // Event listener for 'w' keydown event
-// $(document).keydown(function(event) {
-//   if (event.key === "w") {
-//     $(".second-gear-shift").css("transform", "translateY(-33px)");
-    
-
-    
-//   }else if (event.key === "s") {
-//     // Handle ArrowDown keydown event
-//     $(".second-gear-shift").css("transform", "translateY(33px)");
-    
-//   }
-// });
-
-// // Event listener for 's' keydown event
-// $(document).keyup(function(event){
-//   if (event.key === "s" || event.key === "w") {
-//     $(".second-gear-shift").css("transform", "translateY(0)");
-    
-
-//   }
-// });
-
-// var blurClick = document.getElementById("blurTrigger");
-
-// $(blurClick).click(function(){
-
-//   $(".parent-div").toggleClass("blur-effect");
-
-//   $(".setting-area").toggleClass("active");
-
-
-
-  
-
-// });
 
 // Function to toggle the blur effect on the parent divs
 function toggleBlurEffect() {
@@ -266,10 +342,6 @@ $("#blurTrigger").click(function(event) {
   toggleSettingsArea(); // Show/hide the settings area
 });
 
-// $(".cameraFeed, .fullscreen-button").hover(function(){
-
-//   $(".fullscreen-button").toggleClass("hide");
-// });
 
 
 
@@ -294,7 +366,4 @@ function sendData(movement) {
     console.error('Error:', error);
   });
 }
-
-
-
 
