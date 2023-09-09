@@ -123,10 +123,10 @@
   $(document).keydown(function(event){
 
     if(globalLockedControls == false){
-      var movement = event.key;
+      var movement = event.key.toLowerCase();
       sendData(movement);
 
-      if (event.key === movementSetting.RH_forward) {
+      if (movement === movementSetting.RH_forward) {
         // Handle ArrowUp keydown event
         $("#right-Controller .circle4").css("transform", "translateY(-33px)");
       
@@ -134,18 +134,18 @@
 
       }
         
-      else if (event.key === movementSetting.RH_backward) {
+      else if (movement === movementSetting.RH_backward) {
           // Handle ArrowDown keydown event
         $("#right-Controller .circle4").css("transform", "translateY(33px)");
       
         $("#right-Controller .arrowDown").attr("src", "static/images/test2.png");
       }
-      else if(event.key === movementSetting.LH_forward){
+      else if(movement === movementSetting.LH_forward){
         $("#left-Controller .circle4").css("transform", "translateY(-33px)");
         $("#left-Controller .arrowUp").attr("src","static/images/test2.png");
       }
 
-      else if (event.key === movementSetting.LH_backward){
+      else if (movement === movementSetting.LH_backward){
 
         $("#left-Controller .circle4").css("transform", "translateY(33px)");
         $("#left-Controller .arrowDown").attr("src","static/images/test2.png");
@@ -161,8 +161,10 @@
 
       var movement = "keyup";
       sendData(movement);
+
+      var previousMovement = event.key.toLowerCase();
     
-      if (event.key === movementSetting.RH_forward) {
+      if (previousMovement === movementSetting.RH_forward) {
           // Handle ArrowUp and ArrowDown keyup event
           
     
@@ -171,19 +173,19 @@
           
       }
     
-      else if(event.key === movementSetting.RH_backward){
+      else if(previousMovement === movementSetting.RH_backward){
     
         $("#right-Controller .circle4").css("transform", "translateY(0)");
         $("#right-Controller .arrowDown").attr("src","static/images/downArrow.png");
     
       }
 
-      else if(event.key === movementSetting.LH_forward){
+      else if(previousMovement === movementSetting.LH_forward){
         $("#left-Controller .circle4").css("transform", "translateY(0)");
         $("#left-Controller .arrowUp").attr("src","static/images/upArrow.png");
       }
 
-      else if (event.key === movementSetting.LH_backward){
+      else if (previousMovement === movementSetting.LH_backward){
 
         $("#left-Controller .circle4").css("transform", "translateY(0)");
         $("#left-Controller .arrowDown").attr("src","static/images/downArrow.png");

@@ -224,10 +224,10 @@ body{
 .pause-container img{
 
     position: absolute;
-    left: calc(50% - (50px)/2); /* 100 -40 = 60 and 60/2 = 30 */
-    top: calc(50% - (50px)/2);  /* 100 -45 = 55 and 55/2 = 27.5 */
-    width: 50px;
-    height: 50px;
+    left: calc(50% - (45px)/2); /* 100 -40 = 60 and 60/2 = 30 */
+    top: calc(50% - (45px)/2);  /* 100 -45 = 55 and 55/2 = 27.5 */
+    width: 45px;
+    height: 45px;
     
 }
 
