@@ -55,9 +55,9 @@
   
   const movementSetting = {
     //LH = left hand side motor,  RH = right hand side motor
-    RH_forward : 'ArrowUp',
+    RH_forward : 'arrowup',
 
-    RH_backward: 'ArrowDown',
+    RH_backward: 'arrowdown',
 
     LH_forward : 'w',
 
@@ -103,8 +103,8 @@
     //We need to get the current values of the movements
       
 
-    movementSetting.RH_forward = "ArrowUp";
-    movementSetting.RH_backward = "ArrowDown";
+    movementSetting.RH_forward = "arrowup";
+    movementSetting.RH_backward = "arrowdown";
         
     movementSetting.LH_forward = "w";
     movementSetting.LH_backward = "s";
@@ -123,14 +123,18 @@
   $(document).keydown(function(event){
 
     if(globalLockedControls == false){
+
       var movement = event.key.toLowerCase();
+      console.log(movement);
+
+
       sendData(movement);
 
       if (movement === movementSetting.RH_forward) {
         // Handle ArrowUp keydown event
         $("#right-Controller .circle4").css("transform", "translateY(-33px)");
       
-        $("#right-Controller .arrowUp").attr("src", "static/images/test2.png");
+        $("#right-Controller .arrowUp").attr("src", "static/images/white-upArrow.png");
 
       }
         
@@ -138,17 +142,17 @@
           // Handle ArrowDown keydown event
         $("#right-Controller .circle4").css("transform", "translateY(33px)");
       
-        $("#right-Controller .arrowDown").attr("src", "static/images/test2.png");
+        $("#right-Controller .arrowDown").attr("src", "static/images/white-downArrow.png");
       }
       else if(movement === movementSetting.LH_forward){
         $("#left-Controller .circle4").css("transform", "translateY(-33px)");
-        $("#left-Controller .arrowUp").attr("src","static/images/test2.png");
+        $("#left-Controller .arrowUp").attr("src","static/images/white-upArrow.png");
       }
 
       else if (movement === movementSetting.LH_backward){
 
         $("#left-Controller .circle4").css("transform", "translateY(33px)");
-        $("#left-Controller .arrowDown").attr("src","static/images/test2.png");
+        $("#left-Controller .arrowDown").attr("src","static/images/white-downArrow.png");
 
       }
     }
